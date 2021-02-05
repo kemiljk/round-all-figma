@@ -1,0 +1,36 @@
+<style>
+  button {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    width: 50%;
+  }
+  div {
+    display: flex;
+    width: 100%;
+    padding-top: 0.25rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+</style>
+
+<p style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: smaller; color: darkslategray;">Round everything in the entire document or your specific selection.</h1>
+<div>
+  <button id="select-and-run" style="margin-right: 1rem">Select and run</button>
+  <button
+    id="run"
+    style="background-color: transparent; border-radius: 3px; box-shadow: none"
+  >
+    Run
+  </button>
+</div>
+<script>
+  document.getElementById("select-and-run").onclick = () => {
+    parent.postMessage({ pluginMessage: { type: "select-and-run" } }, "*");
+  };
+
+  document.getElementById("run").onclick = () => {
+    parent.postMessage({ pluginMessage: { type: "run" } }, "*");
+  };
+</script>
