@@ -120,7 +120,10 @@ figma.ui.onmessage = (msg) => {
                             n.y = Math.round(Y);
                             n.resize(Math.round(W), Math.round(H));
                         }
-                        if (n.type === "FRAME") {
+                        if (n.type === "FRAME" ||
+                            n.type === "COMPONENT" ||
+                            n.type === "COMPONENT_SET" ||
+                            n.type === "INSTANCE") {
                             for (n of n.children) {
                                 if (n.type === "FRAME") {
                                     let X = n.x;
