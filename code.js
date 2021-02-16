@@ -31,10 +31,12 @@ figma.ui.onmessage = (msg) => {
                             let T = parseFloat(text);
                             n.fontSize = Math.round(T);
                             let LH = n.getRangeLineHeight(0, selection.length);
-                            n.setRangeLineHeight(0, n.characters.length, {
-                                value: Math.round(LH.value),
-                                unit: "PIXELS",
-                            });
+                            if (LH.unit !== "AUTO" && LH.unit !== "PERCENT") {
+                                n.setRangeLineHeight(0, n.characters.length, {
+                                    value: Math.round(LH.value),
+                                    unit: "PIXELS",
+                                });
+                            }
                             let LS = n.getRangeLetterSpacing(0, selection.length);
                             n.setRangeLetterSpacing(0, n.characters.length, {
                                 value: Math.round(LS.value),
@@ -186,7 +188,7 @@ figma.ui.onmessage = (msg) => {
                                     let T = parseFloat(text);
                                     n.fontSize = Math.round(T);
                                     let LH = n.getRangeLineHeight(0, selection.length);
-                                    if (LH.unit !== "AUTO" && "PERCENT") {
+                                    if (LH.unit !== "AUTO" && LH.unit !== "PERCENT") {
                                         n.setRangeLineHeight(0, n.characters.length, {
                                             value: Math.round(LH.value),
                                             unit: "PIXELS",
@@ -353,7 +355,7 @@ figma.ui.onmessage = (msg) => {
                                     let T = parseFloat(text);
                                     n.fontSize = Math.round(T);
                                     let LH = n.getRangeLineHeight(0, selection.length);
-                                    if (LH.unit !== "AUTO" && "PERCENT") {
+                                    if (LH.unit !== "AUTO" && LH.unit !== "PERCENT") {
                                         n.setRangeLineHeight(0, n.characters.length, {
                                             value: Math.round(LH.value),
                                             unit: "PIXELS",
@@ -520,7 +522,7 @@ figma.ui.onmessage = (msg) => {
                                     let T = parseFloat(text);
                                     n.fontSize = Math.round(T);
                                     let LH = n.getRangeLineHeight(0, selection.length);
-                                    if (LH.unit !== "AUTO" && "PERCENT") {
+                                    if (LH.unit !== "AUTO" && LH.unit !== "PERCENT") {
                                         n.setRangeLineHeight(0, n.characters.length, {
                                             value: Math.round(LH.value),
                                             unit: "PIXELS",
@@ -687,7 +689,7 @@ figma.ui.onmessage = (msg) => {
                                     let T = parseFloat(text);
                                     n.fontSize = Math.round(T);
                                     let LH = n.getRangeLineHeight(0, selection.length);
-                                    if (LH.unit !== "AUTO" && "PERCENT") {
+                                    if (LH.unit !== "AUTO" && LH.unit !== "PERCENT") {
                                         n.setRangeLineHeight(0, n.characters.length, {
                                             value: Math.round(LH.value),
                                             unit: "PIXELS",
@@ -863,7 +865,7 @@ figma.ui.onmessage = (msg) => {
                                     let T = parseFloat(text);
                                     n.fontSize = Math.round(T);
                                     let LH = n.getRangeLineHeight(0, selection.length);
-                                    if (LH.unit !== "AUTO" && "PERCENT") {
+                                    if (LH.unit !== "AUTO" && LH.unit !== "PERCENT") {
                                         n.setRangeLineHeight(0, n.characters.length, {
                                             value: Math.round(LH.value),
                                             unit: "PIXELS",
@@ -1197,7 +1199,7 @@ figma.ui.onmessage = (msg) => {
                                     let T = parseFloat(text);
                                     n.fontSize = Math.round(T);
                                     let LH = n.getRangeLineHeight(0, selection.length);
-                                    if (LH.unit !== "AUTO" && "PERCENT") {
+                                    if (LH.unit !== "AUTO" && LH.unit !== "PERCENT") {
                                         n.setRangeLineHeight(0, n.characters.length, {
                                             value: Math.round(LH.value),
                                             unit: "PIXELS",
@@ -1364,7 +1366,7 @@ figma.ui.onmessage = (msg) => {
                                     let T = parseFloat(text);
                                     n.fontSize = Math.round(T);
                                     let LH = n.getRangeLineHeight(0, selection.length);
-                                    if (LH.unit !== "AUTO" && "PERCENT") {
+                                    if (LH.unit !== "AUTO" && LH.unit !== "PERCENT") {
                                         n.setRangeLineHeight(0, n.characters.length, {
                                             value: Math.round(LH.value),
                                             unit: "PIXELS",
@@ -1531,7 +1533,7 @@ figma.ui.onmessage = (msg) => {
                                     let T = parseFloat(text);
                                     n.fontSize = Math.round(T);
                                     let LH = n.getRangeLineHeight(0, selection.length);
-                                    if (LH.unit !== "AUTO" && "PERCENT") {
+                                    if (LH.unit !== "AUTO" && LH.unit !== "PERCENT") {
                                         n.setRangeLineHeight(0, n.characters.length, {
                                             value: Math.round(LH.value),
                                             unit: "PIXELS",
@@ -1698,7 +1700,7 @@ figma.ui.onmessage = (msg) => {
                                     let T = parseFloat(text);
                                     n.fontSize = Math.round(T);
                                     let LH = n.getRangeLineHeight(0, selection.length);
-                                    if (LH.unit !== "AUTO" && "PERCENT") {
+                                    if (LH.unit !== "AUTO" && LH.unit !== "PERCENT") {
                                         n.setRangeLineHeight(0, n.characters.length, {
                                             value: Math.round(LH.value),
                                             unit: "PIXELS",
@@ -1874,7 +1876,7 @@ figma.ui.onmessage = (msg) => {
                                     let T = parseFloat(text);
                                     n.fontSize = Math.round(T);
                                     let LH = n.getRangeLineHeight(0, selection.length);
-                                    if (LH.unit !== "AUTO" && "PERCENT") {
+                                    if (LH.unit !== "AUTO" && LH.unit !== "PERCENT") {
                                         n.setRangeLineHeight(0, n.characters.length, {
                                             value: Math.round(LH.value),
                                             unit: "PIXELS",
