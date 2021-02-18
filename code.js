@@ -80,18 +80,11 @@ figma.ui.onmessage = (msg) => {
                 for (let n of selection) {
                     if (n.type === "TEXT") {
                         yield figma.loadFontAsync(n.fontName);
-                        let X = n.x;
-                        let Y = n.y;
-                        let W = n.width;
-                        let H = n.height;
-                        n.x = Math.round(X);
-                        n.y = Math.round(Y);
-                        n.resize(Math.round(W), Math.round(H));
-                        let S = n.strokeWeight;
-                        n.strokeWeight = Math.round(S);
-                        let text = n.fontSize.toString();
-                        let T = parseFloat(text);
-                        n.fontSize = Math.round(T);
+                        n.x = Math.round(n.x);
+                        n.y = Math.round(n.y);
+                        n.resize(Math.round(n.width), Math.round(n.height));
+                        n.strokeWeight = Math.round(n.strokeWeight);
+                        n.fontSize = Math.round(parseFloat(n.fontSize.toString()));
                         let LH = n.getRangeLineHeight(0, selection.length);
                         if (LH.unit !== "AUTO" || LH.unit !== "PERCENT") {
                             n.setRangeLineHeight(0, n.characters.length, {
@@ -104,100 +97,51 @@ figma.ui.onmessage = (msg) => {
                             value: Math.round(LS.value),
                             unit: "PIXELS",
                         });
-                        let PS = n.paragraphSpacing;
-                        n.paragraphSpacing = Math.round(PS);
+                        n.paragraphSpacing = Math.round(n.paragraphSpacing);
                     }
                     if (n.type === "FRAME" ||
                         n.type === "COMPONENT" ||
                         n.type === "INSTANCE") {
-                        let X = n.x;
-                        let Y = n.y;
-                        let W = n.width;
-                        let H = n.height;
-                        n.x = Math.round(X);
-                        n.y = Math.round(Y);
-                        n.resize(Math.round(W), Math.round(H));
-                        let PL = n.paddingLeft;
-                        let PR = n.paddingRight;
-                        let PT = n.paddingTop;
-                        let PB = n.paddingBottom;
-                        let IS = n.itemSpacing;
-                        n.paddingLeft = Math.round(PL);
-                        n.paddingRight = Math.round(PR);
-                        n.paddingTop = Math.round(PT);
-                        n.paddingBottom = Math.round(PB);
-                        n.itemSpacing = Math.round(IS);
-                        let radius = n.cornerRadius.toString();
-                        let CR = parseInt(radius);
-                        n.cornerRadius = Math.round(CR);
+                        n.x = Math.round(n.x);
+                        n.y = Math.round(n.y);
+                        n.resize(Math.round(n.width), Math.round(n.height));
+                        n.paddingLeft = Math.round(n.paddingLeft);
+                        n.paddingRight = Math.round(n.paddingRight);
+                        n.paddingTop = Math.round(n.paddingTop);
+                        n.paddingBottom = Math.round(n.paddingBottom);
+                        n.itemSpacing = Math.round(n.itemSpacing);
+                        n.cornerRadius = Math.round(parseInt(n.cornerRadius.toString()));
                         for (n of n.children) {
                             if (n.type === "FRAME" ||
                                 n.type === "COMPONENT" ||
                                 n.type === "INSTANCE") {
-                                let X = n.x;
-                                let Y = n.y;
-                                let W = n.width;
-                                let H = n.height;
-                                n.x = Math.round(X);
-                                n.y = Math.round(Y);
-                                n.resize(Math.round(W), Math.round(H));
-                                let S = n.strokeWeight;
-                                let PL = n.paddingLeft;
-                                let PR = n.paddingRight;
-                                let PT = n.paddingTop;
-                                let PB = n.paddingBottom;
-                                let IS = n.itemSpacing;
-                                n.paddingLeft = Math.round(PL);
-                                n.paddingRight = Math.round(PR);
-                                n.paddingTop = Math.round(PT);
-                                n.paddingBottom = Math.round(PB);
-                                n.itemSpacing = Math.round(IS);
-                                n.strokeWeight = Math.round(S);
-                                let radius = n.cornerRadius.toString();
-                                let CR = parseInt(radius);
-                                n.cornerRadius = Math.round(CR);
-                            }
-                            if (n.type === "GROUP") {
-                                let X = n.x;
-                                let Y = n.y;
-                                let W = n.width;
-                                let H = n.height;
-                                n.x = Math.round(X);
-                                n.y = Math.round(Y);
-                                n.resize(Math.round(W), Math.round(H));
+                                n.x = Math.round(n.x);
+                                n.y = Math.round(n.y);
+                                n.resize(Math.round(n.width), Math.round(n.height));
+                                n.paddingLeft = Math.round(n.paddingLeft);
+                                n.paddingRight = Math.round(n.paddingRight);
+                                n.paddingTop = Math.round(n.paddingTop);
+                                n.paddingBottom = Math.round(n.paddingBottom);
+                                n.itemSpacing = Math.round(n.itemSpacing);
+                                n.cornerRadius = Math.round(parseInt(n.cornerRadius.toString()));
                             }
                             if (n.type === "VECTOR" ||
                                 n.type === "STAR" ||
                                 n.type === "ELLIPSE" ||
                                 n.type === "RECTANGLE" ||
                                 n.type === "POLYGON") {
-                                let X = n.x;
-                                let Y = n.y;
-                                let W = n.width;
-                                let H = n.height;
-                                n.x = Math.round(X);
-                                n.y = Math.round(Y);
-                                n.resize(Math.round(W), Math.round(H));
-                                let S = n.strokeWeight;
-                                n.strokeWeight = Math.round(S);
-                                let radius = n.cornerRadius.toString();
-                                let CR = parseInt(radius);
-                                n.cornerRadius = Math.round(CR);
+                                n.x = Math.round(n.x);
+                                n.y = Math.round(n.y);
+                                n.resize(Math.round(n.width), Math.round(n.height));
+                                n.cornerRadius = Math.round(parseInt(n.cornerRadius.toString()));
                             }
                             if (n.type === "TEXT") {
                                 yield figma.loadFontAsync(n.fontName);
-                                let X = n.x;
-                                let Y = n.y;
-                                let W = n.width;
-                                let H = n.height;
-                                n.x = Math.round(X);
-                                n.y = Math.round(Y);
-                                n.resize(Math.round(W), Math.round(H));
-                                let S = n.strokeWeight;
-                                n.strokeWeight = Math.round(S);
-                                let text = n.fontSize.toString();
-                                let T = parseFloat(text);
-                                n.fontSize = Math.round(T);
+                                n.x = Math.round(n.x);
+                                n.y = Math.round(n.y);
+                                n.resize(Math.round(n.width), Math.round(n.height));
+                                n.strokeWeight = Math.round(n.strokeWeight);
+                                n.fontSize = Math.round(parseFloat(n.fontSize.toString()));
                                 let LH = n.getRangeLineHeight(0, selection.length);
                                 if (LH.unit !== "AUTO" || LH.unit !== "PERCENT") {
                                     n.setRangeLineHeight(0, n.characters.length, {
@@ -210,8 +154,7 @@ figma.ui.onmessage = (msg) => {
                                     value: Math.round(LS.value),
                                     unit: "PIXELS",
                                 });
-                                let PS = n.paragraphSpacing;
-                                n.paragraphSpacing = Math.round(PS);
+                                n.paragraphSpacing = Math.round(n.paragraphSpacing);
                             }
                         }
                     }
@@ -220,6 +163,8 @@ figma.ui.onmessage = (msg) => {
             });
         }
         roundPixels();
-        figma.notify(`Cleaned up ${selection.length} node(s)`);
+        if (selection.length > 0) {
+            figma.notify("All cleaned up!");
+        }
     }
 };
