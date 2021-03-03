@@ -106,7 +106,7 @@ figma.ui.onmessage = (msg) => {
               node[property] = Math.round(node[property]);
             }
             node.cornerRadius = Math.round(Number(node.cornerRadius));
-            for (let innerNode of pageNode.selection.children) {
+            for (let innerNode of node.children) {
               innerNode.x = Math.round(innerNode.x);
               innerNode.y = Math.round(innerNode.y);
               innerNode.resize(
