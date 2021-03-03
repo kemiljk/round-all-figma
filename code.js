@@ -59,14 +59,14 @@ figma.ui.onmessage = (msg) => {
                                 yield figma.loadFontAsync(innerNode.fontName);
                                 innerNode.strokeWeight = Math.round(innerNode.strokeWeight);
                                 innerNode.fontSize = Math.round(Number(innerNode.fontSize));
-                                let LH = innerNode.getRangeLineHeight(0, selection.length);
+                                let LH = innerNode.getRangeLineHeight(0, node.characters.length);
                                 if (LH.unit !== "AUTO" || LH.unit !== "PERCENT") {
                                     innerNode.setRangeLineHeight(0, innerNode.characters.length, {
-                                        value: Math.round(LH.value),
+                                        value: Math.round(Number(LH.value)),
                                         unit: "PIXELS",
                                     });
                                 }
-                                let LS = innerNode.getRangeLetterSpacing(0, selection.length);
+                                let LS = innerNode.getRangeLetterSpacing(0, node.characters.length);
                                 innerNode.setRangeLetterSpacing(0, innerNode.characters.length, {
                                     value: Math.round(LS.value),
                                     unit: "PIXELS",
@@ -117,16 +117,23 @@ figma.ui.onmessage = (msg) => {
                                 yield figma.loadFontAsync(innerNode.fontName);
                                 innerNode.strokeWeight = Math.round(innerNode.strokeWeight);
                                 innerNode.fontSize = Math.round(Number(innerNode.fontSize));
-                                let LH = innerNode.getRangeLineHeight(0, selection.length);
+                                innerNode.getRangeLineHeight();
+                                let LH = innerNode.getRangeLineHeight(0, innerNode.characters.length);
                                 if (LH.unit !== "AUTO" || LH.unit !== "PERCENT") {
-                                    innerNode.setRangeLineHeight(0, innerNode.characters.length, {
-                                        value: Math.round(LH.value),
+                                    innerNode.setRangeLineHeight(0, node.characters.length, {
+                                        value: Math.round(Number(LH.value)),
                                         unit: "PIXELS",
                                     });
                                 }
-                                let LS = innerNode.getRangeLetterSpacing(0, selection.length);
+                                if (LH.unit === "PERCENT") {
+                                    innerNode.setRangeLineHeight(0, node.characters.length, {
+                                        value: Math.round(Number(LH.value)),
+                                        unit: "PERCENT",
+                                    });
+                                }
+                                let LS = innerNode.getRangeLetterSpacing(0, node.characters.length);
                                 innerNode.setRangeLetterSpacing(0, innerNode.characters.length, {
-                                    value: Math.round(LS.value),
+                                    value: Math.round(Number(LS.value)),
                                     unit: "PIXELS",
                                 });
                                 innerNode.paragraphSpacing = Math.round(innerNode.paragraphSpacing);
