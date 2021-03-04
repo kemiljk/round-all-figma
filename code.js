@@ -33,6 +33,7 @@ figma.ui.onmessage = (msg) => {
                     node.x = Math.round(node.x);
                     node.y = Math.round(node.y);
                     node.resize(Math.round(node.width), Math.round(node.height));
+                    node.strokeWeight = Math.round(node.strokeWeight);
                     if (node.type === "TEXT") {
                         yield figma.loadFontAsync(node.fontName);
                         node.textAutoResize = "WIDTH_AND_HEIGHT";
@@ -70,6 +71,7 @@ figma.ui.onmessage = (msg) => {
                         node.x = Math.round(node.x);
                         node.y = Math.round(node.y);
                         node.resize(Math.round(node.width), Math.round(node.height));
+                        node.strokeWeight = Math.round(node.strokeWeight);
                         for (let property of propertiesToRound) {
                             node[property] = Math.round(node[property]);
                         }
@@ -133,6 +135,7 @@ figma.ui.onmessage = (msg) => {
                     node.x = Math.round(node.x);
                     node.y = Math.round(node.y);
                     node.resize(Math.round(node.width), Math.round(node.height));
+                    node.strokeWeight = Math.round(node.strokeWeight);
                     if (node.type === "TEXT") {
                         yield figma.loadFontAsync(node.fontName);
                         node.textAutoResize = "WIDTH_AND_HEIGHT";
