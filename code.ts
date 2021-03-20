@@ -27,6 +27,7 @@ figma.ui.onmessage = (msg) => {
           node.y = Math.round(node.y);
           node.resize(Math.round(node.width), Math.round(node.height));
           node.strokeWeight = Math.round(node.strokeWeight);
+          // node.cornerRadius = Math.round(node.cornerRadius);
           if (node.type === "TEXT") {
             await figma.loadFontAsync(node.fontName as FontName);
             node.textAutoResize = "WIDTH_AND_HEIGHT";
@@ -65,6 +66,7 @@ figma.ui.onmessage = (msg) => {
             node.y = Math.round(node.y);
             node.resize(Math.round(node.width), Math.round(node.height));
             node.strokeWeight = Math.round(node.strokeWeight);
+            node.cornerRadius = Math.round(node.cornerRadius);
             for (let property of propertiesToRound) {
               node[property] = Math.round(node[property]);
             }
@@ -72,6 +74,7 @@ figma.ui.onmessage = (msg) => {
             for (let innerNode of node.children) {
               innerNode.x = Math.round(innerNode.x);
               innerNode.y = Math.round(innerNode.y);
+              innerNode.cornerRadius = Math.round(innerNode.cornerRadius);
               innerNode.resize(
                 Math.round(innerNode.width),
                 Math.round(innerNode.height)
@@ -97,7 +100,7 @@ figma.ui.onmessage = (msg) => {
                 innerNode.fontSize = Math.round(Number(innerNode.fontSize));
                 let LH = innerNode.getRangeLineHeight(
                   0,
-                  node.characters.length
+                  innerNode.characters.length
                 );
                 if (LH.unit !== "AUTO" || LH.unit !== "PERCENT") {
                   innerNode.setRangeLineHeight(0, innerNode.characters.length, {
@@ -107,7 +110,7 @@ figma.ui.onmessage = (msg) => {
                 }
                 let LS = innerNode.getRangeLetterSpacing(
                   0,
-                  node.characters.length
+                  innerNode.characters.length
                 );
                 if (LS.unit === "PIXELS") {
                   innerNode.setRangeLetterSpacing(
@@ -186,18 +189,23 @@ figma.ui.onmessage = (msg) => {
             }
             node.paragraphSpacing = Math.round(node.paragraphSpacing);
           }
+          if (nodeshapetypes.includes(node.type)) {
+            node.strokeWeight = Math.round(node.strokeWeight);
+            node.cornerRadius = Math.round(Number(node.cornerRadius));
+          }
           if (nodetypes.includes(node.type)) {
             node.x = Math.round(node.x);
             node.y = Math.round(node.y);
             node.resize(Math.round(node.width), Math.round(node.height));
             node.strokeWeight = Math.round(node.strokeWeight);
+            node.cornerRadius = Math.round(Number(node.cornerRadius));
             for (let property of propertiesToRound) {
               node[property] = Math.round(node[property]);
             }
-            node.cornerRadius = Math.round(Number(node.cornerRadius));
             for (let innerNode of node.children) {
               innerNode.x = Math.round(innerNode.x);
               innerNode.y = Math.round(innerNode.y);
+              innerNode.cornerRadius = Math.round(innerNode.cornerRadius);
               innerNode.resize(
                 Math.round(innerNode.width),
                 Math.round(innerNode.height)
@@ -243,24 +251,16 @@ figma.ui.onmessage = (msg) => {
                   node.characters.length
                 );
                 if (LS.unit === "PIXELS") {
-                  innerNode.setRangeLetterSpacing(
-                    0,
-                    innerNode.characters.length,
-                    {
-                      value: Math.round(Number(LS.value)),
-                      unit: "PIXELS",
-                    }
-                  );
+                  innerNode.setRangeLetterSpacing(0, node.characters.length, {
+                    value: Math.round(Number(LS.value)),
+                    unit: "PIXELS",
+                  });
                 }
                 if (LS.unit === "PERCENT") {
-                  innerNode.setRangeLetterSpacing(
-                    0,
-                    innerNode.characters.length,
-                    {
-                      value: Math.round(Number(LS.value)),
-                      unit: "PERCENT",
-                    }
-                  );
+                  innerNode.setRangeLetterSpacing(0, node.characters.length, {
+                    value: Math.round(Number(LS.value)),
+                    unit: "PERCENT",
+                  });
                 }
                 innerNode.paragraphSpacing = Math.round(
                   innerNode.paragraphSpacing

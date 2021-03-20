@@ -34,6 +34,7 @@ figma.ui.onmessage = (msg) => {
                     node.y = Math.round(node.y);
                     node.resize(Math.round(node.width), Math.round(node.height));
                     node.strokeWeight = Math.round(node.strokeWeight);
+                    // node.cornerRadius = Math.round(node.cornerRadius);
                     if (node.type === "TEXT") {
                         yield figma.loadFontAsync(node.fontName);
                         node.textAutoResize = "WIDTH_AND_HEIGHT";
@@ -72,6 +73,7 @@ figma.ui.onmessage = (msg) => {
                         node.y = Math.round(node.y);
                         node.resize(Math.round(node.width), Math.round(node.height));
                         node.strokeWeight = Math.round(node.strokeWeight);
+                        node.cornerRadius = Math.round(node.cornerRadius);
                         for (let property of propertiesToRound) {
                             node[property] = Math.round(node[property]);
                         }
@@ -79,6 +81,7 @@ figma.ui.onmessage = (msg) => {
                         for (let innerNode of node.children) {
                             innerNode.x = Math.round(innerNode.x);
                             innerNode.y = Math.round(innerNode.y);
+                            innerNode.cornerRadius = Math.round(innerNode.cornerRadius);
                             innerNode.resize(Math.round(innerNode.width), Math.round(innerNode.height));
                             if (nodetypes.includes(innerNode.type)) {
                                 for (let property of propertiesToRound) {
@@ -95,14 +98,14 @@ figma.ui.onmessage = (msg) => {
                                 innerNode.width = "AUTO";
                                 innerNode.strokeWeight = Math.round(innerNode.strokeWeight);
                                 innerNode.fontSize = Math.round(Number(innerNode.fontSize));
-                                let LH = innerNode.getRangeLineHeight(0, node.characters.length);
+                                let LH = innerNode.getRangeLineHeight(0, innerNode.characters.length);
                                 if (LH.unit !== "AUTO" || LH.unit !== "PERCENT") {
                                     innerNode.setRangeLineHeight(0, innerNode.characters.length, {
                                         value: Math.round(Number(LH.value)),
                                         unit: "PIXELS",
                                     });
                                 }
-                                let LS = innerNode.getRangeLetterSpacing(0, node.characters.length);
+                                let LS = innerNode.getRangeLetterSpacing(0, innerNode.characters.length);
                                 if (LS.unit === "PIXELS") {
                                     innerNode.setRangeLetterSpacing(0, innerNode.characters.length, {
                                         value: Math.round(LS.value),
@@ -169,18 +172,23 @@ figma.ui.onmessage = (msg) => {
                         }
                         node.paragraphSpacing = Math.round(node.paragraphSpacing);
                     }
+                    if (nodeshapetypes.includes(node.type)) {
+                        node.strokeWeight = Math.round(node.strokeWeight);
+                        node.cornerRadius = Math.round(Number(node.cornerRadius));
+                    }
                     if (nodetypes.includes(node.type)) {
                         node.x = Math.round(node.x);
                         node.y = Math.round(node.y);
                         node.resize(Math.round(node.width), Math.round(node.height));
                         node.strokeWeight = Math.round(node.strokeWeight);
+                        node.cornerRadius = Math.round(Number(node.cornerRadius));
                         for (let property of propertiesToRound) {
                             node[property] = Math.round(node[property]);
                         }
-                        node.cornerRadius = Math.round(Number(node.cornerRadius));
                         for (let innerNode of node.children) {
                             innerNode.x = Math.round(innerNode.x);
                             innerNode.y = Math.round(innerNode.y);
+                            innerNode.cornerRadius = Math.round(innerNode.cornerRadius);
                             innerNode.resize(Math.round(innerNode.width), Math.round(innerNode.height));
                             if (nodetypes.includes(innerNode.type)) {
                                 for (let property of propertiesToRound) {
@@ -213,13 +221,13 @@ figma.ui.onmessage = (msg) => {
                                 }
                                 let LS = innerNode.getRangeLetterSpacing(0, node.characters.length);
                                 if (LS.unit === "PIXELS") {
-                                    innerNode.setRangeLetterSpacing(0, innerNode.characters.length, {
+                                    innerNode.setRangeLetterSpacing(0, node.characters.length, {
                                         value: Math.round(Number(LS.value)),
                                         unit: "PIXELS",
                                     });
                                 }
                                 if (LS.unit === "PERCENT") {
-                                    innerNode.setRangeLetterSpacing(0, innerNode.characters.length, {
+                                    innerNode.setRangeLetterSpacing(0, node.characters.length, {
                                         value: Math.round(Number(LS.value)),
                                         unit: "PERCENT",
                                     });
