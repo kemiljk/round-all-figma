@@ -21,6 +21,7 @@ let propertiesToRound = [
 figma.ui.onmessage = (msg) => {
   if (msg.type === "select-and-run") {
     async function selectAndRound(): Promise<String> {
+      const layers = figma.currentPage.findAll();
       figma.root.children.flatMap((pageNode) =>
         pageNode.findAll().forEach(async (node) => {
           node.x = Math.round(node.x);
@@ -140,6 +141,7 @@ figma.ui.onmessage = (msg) => {
           }
         })
       );
+      figma.currentPage.selection = layers;
       return Promise.resolve("Done!");
     }
     selectAndRound();

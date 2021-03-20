@@ -29,6 +29,7 @@ figma.ui.onmessage = (msg) => {
     if (msg.type === "select-and-run") {
         function selectAndRound() {
             return __awaiter(this, void 0, void 0, function* () {
+                const layers = figma.currentPage.findAll();
                 figma.root.children.flatMap((pageNode) => pageNode.findAll().forEach((node) => __awaiter(this, void 0, void 0, function* () {
                     node.x = Math.round(node.x);
                     node.y = Math.round(node.y);
@@ -123,6 +124,7 @@ figma.ui.onmessage = (msg) => {
                         }
                     }
                 })));
+                figma.currentPage.selection = layers;
                 return Promise.resolve("Done!");
             });
         }
