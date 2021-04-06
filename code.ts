@@ -1,6 +1,6 @@
 figma.showUI(__html__, { width: 300, height: 105 });
 
-const { selection } = figma.currentPage;
+const layers = figma.currentPage.findAll();
 let nodetypes = ["FRAME", "COMPONENT", "INSTANCE", "GROUP"];
 let nodeshapetypes = [
   "VECTOR",
@@ -21,7 +21,8 @@ let propertiesToRound = [
 figma.ui.onmessage = (msg) => {
   if (msg.type === "select-and-run") {
     async function selectAndRound(): Promise<String> {
-      const layers = figma.currentPage.findAll();
+      figma.currentPage.selection = layers;
+      figma.notify("All cleaned up!");
       figma.root.children.flatMap((pageNode) =>
         pageNode.findAll().forEach(async (node) => {
           node.x = Math.round(node.x);
@@ -31,7 +32,13 @@ figma.ui.onmessage = (msg) => {
           // node.cornerRadius = Math.round(node.cornerRadius);
           if (node.type === "TEXT") {
             await figma.loadFontAsync(node.fontName as FontName);
-            node.textAutoResize = "WIDTH_AND_HEIGHT";
+            if (node.textAutoResize == "NONE") {
+              node.textAutoResize = "NONE";
+            } else if (node.textAutoResize == "HEIGHT") {
+              node.textAutoResize = "HEIGHT";
+            } else {
+              node.textAutoResize = "WIDTH_AND_HEIGHT";
+            }
             node.strokeWeight = Math.round(node.strokeWeight);
             node.fontSize = Math.round(Number(node.fontSize));
             let LH = node.getRangeLineHeight(0, node.characters.length);
@@ -96,6 +103,13 @@ figma.ui.onmessage = (msg) => {
               }
               if (innerNode.type === "TEXT") {
                 await figma.loadFontAsync(innerNode.fontName as FontName);
+                if (innerNode.textAutoResize == "NONE") {
+                  innerNode.textAutoResize = "NONE";
+                } else if (innerNode.textAutoResize == "HEIGHT") {
+                  innerNode.textAutoResize = "HEIGHT";
+                } else {
+                  innerNode.textAutoResize = "WIDTH_AND_HEIGHT";
+                }
                 innerNode.width = "AUTO";
                 innerNode.strokeWeight = Math.round(innerNode.strokeWeight);
                 innerNode.fontSize = Math.round(Number(innerNode.fontSize));
@@ -141,13 +155,9 @@ figma.ui.onmessage = (msg) => {
           }
         })
       );
-      figma.currentPage.selection = layers;
       return Promise.resolve("Done!");
     }
     selectAndRound();
-    if (selection.length > 0) {
-      figma.notify("All cleaned up!");
-    }
   }
 
   if (msg.type === "run") {
@@ -160,7 +170,13 @@ figma.ui.onmessage = (msg) => {
           node.strokeWeight = Math.round(node.strokeWeight);
           if (node.type === "TEXT") {
             await figma.loadFontAsync(node.fontName as FontName);
-            node.textAutoResize = "WIDTH_AND_HEIGHT";
+            if (node.textAutoResize == "NONE") {
+              node.textAutoResize = "NONE";
+            } else if (node.textAutoResize == "HEIGHT") {
+              node.textAutoResize = "HEIGHT";
+            } else {
+              node.textAutoResize = "WIDTH_AND_HEIGHT";
+            }
             node.strokeWeight = Math.round(node.strokeWeight);
             node.fontSize = Math.round(Number(node.fontSize));
             let LH = node.getRangeLineHeight(0, node.characters.length);
@@ -228,7 +244,13 @@ figma.ui.onmessage = (msg) => {
               }
               if (innerNode.type === "TEXT") {
                 await figma.loadFontAsync(innerNode.fontName as FontName);
-                innerNode.textAutoResize = "WIDTH_AND_HEIGHT";
+                if (innerNode.textAutoResize == "NONE") {
+                  innerNode.textAutoResize = "NONE";
+                } else if (innerNode.textAutoResize == "HEIGHT") {
+                  innerNode.textAutoResize = "HEIGHT";
+                } else {
+                  innerNode.textAutoResize = "WIDTH_AND_HEIGHT";
+                }
                 innerNode.strokeWeight = Math.round(innerNode.strokeWeight);
                 innerNode.fontSize = Math.round(Number(innerNode.fontSize));
                 innerNode.getRangeLineHeight();
@@ -275,7 +297,7 @@ figma.ui.onmessage = (msg) => {
       return Promise.resolve("Done!");
     }
     roundPixels();
-    if (selection.length > 0) {
+    if (layers.length > 0) {
       figma.notify("All cleaned up!");
     }
   }
