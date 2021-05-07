@@ -26,6 +26,7 @@ figma.ui.onmessage = (msg) => {
           node.x = Math.round(node.x);
           node.y = Math.round(node.y);
           node.resize(Math.round(node.width), Math.round(node.height));
+          node.rotation = Math.round(node.rotation);
           node.strokeWeight = Math.round(node.strokeWeight);
           if (node.type === "TEXT") {
             await figma.loadFontAsync(node.fontName as FontName);
@@ -69,11 +70,13 @@ figma.ui.onmessage = (msg) => {
           if (nodeshapetypes.includes(node.type)) {
             node.strokeWeight = Math.round(node.strokeWeight);
             node.cornerRadius = Math.round(Number(node.cornerRadius));
+            node.rotation = Math.round(node.rotation);
           }
           if (nodetypes.includes(node.type)) {
             node.x = Math.round(node.x);
             node.y = Math.round(node.y);
             node.resize(Math.round(node.width), Math.round(node.height));
+            node.rotation = Math.round(node.rotation);
             node.strokeWeight = Math.round(node.strokeWeight);
             node.cornerRadius = Math.round(Number(node.cornerRadius));
             for (let property of propertiesToRound) {
@@ -83,6 +86,7 @@ figma.ui.onmessage = (msg) => {
               innerNode.x = Math.round(innerNode.x);
               innerNode.y = Math.round(innerNode.y);
               innerNode.cornerRadius = Math.round(innerNode.cornerRadius);
+              innerNode.rotation = Math.round(innerNode.rotation);
               innerNode.resize(
                 Math.round(innerNode.width),
                 Math.round(innerNode.height)
@@ -94,12 +98,14 @@ figma.ui.onmessage = (msg) => {
                 innerNode.cornerRadius = Math.round(
                   Number(innerNode.cornerRadius)
                 );
+                innerNode.rotation = Math.round(innerNode.rotation);
               }
               if (nodeshapetypes.includes(innerNode.type)) {
                 innerNode.strokeWeight = Math.round(innerNode.strokeWeight);
                 innerNode.cornerRadius = Math.round(
                   Number(innerNode.cornerRadius)
                 );
+                innerNode.rotation = Math.round(innerNode.rotation);
               }
               if (innerNode.type === "TEXT") {
                 await figma.loadFontAsync(innerNode.fontName as FontName);
@@ -112,6 +118,7 @@ figma.ui.onmessage = (msg) => {
                 }
                 innerNode.strokeWeight = Math.round(innerNode.strokeWeight);
                 innerNode.fontSize = Math.round(Number(innerNode.fontSize));
+                innerNode.rotation = Math.round(innerNode.rotation);
                 innerNode.getRangeLineHeight();
                 let LH = innerNode.getRangeLineHeight(
                   0,
@@ -170,6 +177,7 @@ figma.ui.onmessage = (msg) => {
           node.x = Math.round(node.x);
           node.y = Math.round(node.y);
           node.resize(Math.round(node.width), Math.round(node.height));
+          node.rotation = Math.round(node.rotation);
           node.strokeWeight = Math.round(node.strokeWeight);
           node.cornerRadius = Math.round(node.cornerRadius);
           if (node.type === "TEXT") {
@@ -183,6 +191,7 @@ figma.ui.onmessage = (msg) => {
             }
             node.strokeWeight = Math.round(node.strokeWeight);
             node.fontSize = Math.round(Number(node.fontSize));
+            node.rotation = Math.round(node.rotation);
             let LH = node.getRangeLineHeight(0, node.characters.length);
             if (LH.unit !== "AUTO" || LH.unit !== "PERCENT") {
               node.setRangeLineHeight(0, node.characters.length, {
@@ -215,6 +224,7 @@ figma.ui.onmessage = (msg) => {
             node.x = Math.round(node.x);
             node.y = Math.round(node.y);
             node.resize(Math.round(node.width), Math.round(node.height));
+            node.rotation = Math.round(node.rotation);
             node.strokeWeight = Math.round(node.strokeWeight);
             node.cornerRadius = Math.round(node.cornerRadius);
             for (let property of propertiesToRound) {
@@ -225,6 +235,7 @@ figma.ui.onmessage = (msg) => {
               innerNode.x = Math.round(innerNode.x);
               innerNode.y = Math.round(innerNode.y);
               innerNode.cornerRadius = Math.round(innerNode.cornerRadius);
+              innerNode.rotation = Math.round(innerNode.rotation);
               innerNode.resize(
                 Math.round(innerNode.width),
                 Math.round(innerNode.height)
@@ -236,12 +247,14 @@ figma.ui.onmessage = (msg) => {
                 innerNode.cornerRadius = Math.round(
                   Number(innerNode.cornerRadius)
                 );
+                innerNode.rotation = Math.round(innerNode.rotation);
               }
               if (nodeshapetypes.includes(innerNode.type)) {
                 innerNode.strokeWeight = Math.round(innerNode.strokeWeight);
                 innerNode.cornerRadius = Math.round(
                   Number(innerNode.cornerRadius)
                 );
+                innerNode.rotation = Math.round(innerNode.rotation);
               }
               if (innerNode.type === "TEXT") {
                 await figma.loadFontAsync(innerNode.fontName as FontName);
@@ -255,6 +268,7 @@ figma.ui.onmessage = (msg) => {
                 innerNode.width = "AUTO";
                 innerNode.strokeWeight = Math.round(innerNode.strokeWeight);
                 innerNode.fontSize = Math.round(Number(innerNode.fontSize));
+                innerNode.rotation = Math.round(innerNode.rotation);
                 let LH = innerNode.getRangeLineHeight(
                   0,
                   innerNode.characters.length
