@@ -166,6 +166,9 @@ figma.ui.onmessage = (msg) => {
     if (layers.length > 0) {
       figma.notify("All cleaned up!");
     }
+    if (msg.checkboxOn === true) {
+      figma.closePlugin();
+    }
   }
 
   if (msg.type === "select-and-run") {
@@ -317,6 +320,8 @@ figma.ui.onmessage = (msg) => {
     if (layers.length > 0) {
       figma.notify("All cleaned up!");
     }
-    figma.closePlugin();
+    if (msg.checkboxOn === true) {
+      figma.closePlugin();
+    }
   }
 };

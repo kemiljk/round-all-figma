@@ -6,7 +6,7 @@
     padding-bottom: 0.5rem;
     width: 100%;
   }
-  div {
+  div.buttons {
     display: flex;
     width: 100%;
     padding-top: 0.25rem;
@@ -23,24 +23,28 @@
     background-color: #17a0fb;
     color: white;
     height: 40px;
+    font-size: 12px;
     font-weight: 600;
     border-radius: 8px;
     box-shadow: none;
     outline: none;
     border: none;
     transition: all 0.1s ease-in-out;
+    cursor: pointer;
   }
   .secondary {
     margin-right: 1rem;
     background-color: white;
     color: rgb(87, 87, 87);
     height: 40px;
+    font-size: 12px;
     font-weight: 500;
     border-radius: 8px;
     box-shadow: none;
     outline: none;
     border: 1px solid darkgrey;
     transition: all 0.1s ease-in-out;
+    cursor: pointer;
   }
   .primary:active {
     background-color: #0985d8;
@@ -56,20 +60,108 @@
     background-color: lightgray;
     transition: all 0.1s ease-in-out;
   }
+  .justify-end {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .mb-0 {
+    margin-bottom: 0;
+  }
+
+  /* The switch - the box around the slider */
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 24px;
+  }
+
+  /* Hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #d5d6d7;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+  }
+
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+  }
+
+  input:checked + .slider {
+    background-color: #17a0fb;
+  }
+
+  input:focus + .slider {
+    box-shadow: 0 0 1px #0985d8;
+  }
+
+  input:checked + .slider:before {
+    -webkit-transform: translateX(16px);
+    -ms-transform: translateX(16px);
+    transform: translateX(16px);
+  }
+
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+
+  .slider.round:before {
+    border-radius: 50%;
+  }
 </style>
 
-<p>Round your specific selection to the nearest whole number.</p>
-<div>
-  <button id="run" class="secondary">Run</button>
-  <button id="select-and-run" class="primary">Select and run</button>
+<div class="justify-end mb-0">
+  <p>Close plugin on completion</p>
+  <label class="switch">
+    <input type="checkbox" id="checkbox" />
+    <span class="slider round"></span>
+  </label>
+</div>
+<div class="buttons">
+  <button id="run" class="secondary">Your selection</button>
+  <button id="select-and-run" class="primary">Entire document</button>
 </div>
 
 <script>
+  const checkbox = document.getElementById("checkbox");
+  let checkboxOn = checkbox.hasAttribute("checked");
+  checkbox.onclick = () => {
+    checkbox.toggleAttribute("checked");
+    checkboxOn = checkbox.hasAttribute("checked");
+    console.log(checkboxOn);
+  };
+
   document.getElementById("select-and-run").onclick = () => {
-    parent.postMessage({ pluginMessage: { type: "select-and-run" } }, "*");
+    parent.postMessage(
+      { pluginMessage: { type: "select-and-run", checkboxOn } },
+      "*"
+    );
   };
 
   document.getElementById("run").onclick = () => {
-    parent.postMessage({ pluginMessage: { type: "run" } }, "*");
+    parent.postMessage({ pluginMessage: { type: "run", checkboxOn } }, "*");
   };
 </script>
